@@ -1,0 +1,75 @@
+Задача: вызов лифта
+В доме два лифта.
+Реализовать алгоритм отправки наиближайшего на вызывающий этаж.
+Алгоритм будет применяться в домах разной этажности.
+*Алгоритм будет применяться в домах с количеством > 2 лифтов
+Пример:
+в доме 19 этажей
+работают лифт А и лифт В
+лифт А находиться на 0 этаже
+лифт В находиться на 8 этаже
+на вход: 1
+отправляем лифт А
+
+
+Для реализации алгоритма отправки наиближайшего лифта, вы можете использовать следующий подход:
+
+При получении вызова, определите текущее местоположение каждого лифта.
+Рассчитайте расстояние от каждого лифта до вызываемого этажа.
+Отправьте лифт, который находится ближе всего.
+пример алгоритма на Java:
+
+
+import java.util.ArrayList;
+import java.util.List;
+
+class Lift {
+    private int currentFloor;
+
+    public Lift(int currentFloor) {
+        this.currentFloor = currentFloor;
+    }
+
+    public int getCurrentFloor() {
+        return currentFloor;
+    }
+}
+
+public class LiftManager {
+    public static Lift getNearestLift(int requestedFloor, List<Lift> lifts) {
+        int minDistance = Integer.MAX_VALUE;
+        Lift nearestLift = null;
+
+        for (Lift lift : lifts) {
+            int distance = Math.abs(lift.getCurrentFloor() - requestedFloor);
+            if (distance < minDistance) {
+                minDistance = distance;
+                nearestLift = lift;
+            }
+        }
+
+        return nearestLift;
+    }
+
+    public static void main(String[] args) {
+        Lift liftA = new Lift(0);
+        Lift liftB = new Lift(8);
+
+        List<Lift> lifts = new ArrayList<>();
+        lifts.add(liftA);
+        lifts.add(liftB);
+
+        int requestedFloor = 1;
+
+        Lift nearestLift = getNearestLift(requestedFloor, lifts);
+
+        System.out.println("Отправляем лифт " + (char) ('A' + lifts.indexOf(nearestLift)));
+    }
+}
+Этот пример создает класс Lift, который представляет лифт с его текущим этажом. Класс LiftManager содержит метод 
+getNearestLift, который определяет ближайший лифт к вызываемому этажу. В методе main создаются два лифта, 
+вызывается метод и выводится информация о том, какой лифт отправить на вызываемый этаж.
+
+
+
+
